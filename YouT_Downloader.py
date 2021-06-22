@@ -24,7 +24,12 @@ ruta_descarga=StringVar()
 entry_destino=Entry(ws, width=40, textvariable=ruta_descarga)
 entry_destino.grid(row=2, column=1, padx=5, pady=5)
 
+boton_busqueda= Button (ws, text="Buscar", width=10, bg="#D8D8D8")
+boton_busqueda.grid(row=2, column=2, pady=1, padx=1)
 
+
+boton_descargar= Button(ws, text="Descargar", width=20, bg="#D8D8D8")
+boton_descargar.grid(row=3, column=1, padx=3, pady=3)
 
 
 ws.mainloop()
