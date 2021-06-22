@@ -10,7 +10,7 @@ ws.config(bg="#940404")
 
 #Logica
 def Buscar():
-    directorio_descargar= filedialog.askdirectory(initialdir="RUTA DE DIRECTORIO")
+    directorio_descargar= filedialog.askdirectory()
     ruta_descarga.set(directorio_descargar)
 
 def Descargar():
@@ -20,7 +20,7 @@ def Descargar():
     stream_video=toma_video.streams.first()
     stream_video.download(carpeta_descarga)
 
-    messagebox.showinfo("COMPLETADO", f"DESCARGADO Y GUARDADO EN {carpeta_descarga}")
+    messagebox.showinfo("COMPLETADO", f"DESCARGADO Y GUARDADO EN\n{carpeta_descarga}")
 
 
 #Pantalla:
