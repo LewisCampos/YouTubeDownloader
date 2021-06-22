@@ -3,6 +3,45 @@ from tkinter import ttk
 from tkinter import filedialog
 from pytube import YouTube
 
+
+nombre_archivo=""
+
+def abrir_directorio():
+    global nombre_archivo
+    nombre_archivo = filedialog.askdirectory()
+
+    if (len(nombre_archivo) > 1):
+        error_ruta.config(text=nombre_archivo, fg="green")
+
+    else:
+        error_ruta.config(text="Por favor elige una carpeta!!", fg="red")
+        
+
+
+def descarga_video():
+    eleccion = calidades_vd.get()
+    url=variable_vd.get()
+
+    if(len(url)>1):
+        error_vd.config(text="")
+        vd = YouTube(url)
+
+        if (eleccion==calidades[0]):
+            seleciona= vd.streams.filter(progressive=True).first()
+
+        elif (eleccion==calidades[1]):
+            seleciona=vd.streams.filter(progressive=True,file_extension="mp4").last()
+
+        elif (eleccion==calidades[2]):
+            seleciona=vd.streams.filter(only_audio=True).first()
+
+        else:
+            error_vd.config(text="Copia el link de nuevo", fg="red")
+
+    seleciona.download(nombre_archivo)
+    error_vd.config(text="Descarga Completa")
+
+
 rt = Tk()
 rt.title("Downloader")
 rt.geometry("350x400")
@@ -22,7 +61,7 @@ error_vd.grid()
 salvar_vd= Label(rt, text="Salvar El Archivo", font=("jost", 15, "bold"))
 salvar_vd.grid()
 
-salvar_archivo= Button(rt, width=10, text="Elige la Ruta", bg="red", fg="white")
+salvar_archivo= Button(rt, width=10, text="Elige la Ruta", bg="red", fg="white", command=abrir_directorio)
 salvar_archivo.grid()
 
 error_ruta= Label(rt, text="Error de ruta seleccioanda", fg="red", font=("jost", 10))
@@ -35,14 +74,7 @@ calidades=["720p", "144p", "Audio"]
 calidades_vd= ttk.Combobox(rt, values=calidades)
 calidades_vd.grid()
 
-boton_descargar = Button(rt, text="Descargar", width=10, bg="red", fg="white")
+boton_descargar = Button(rt, text="Descargar", width=10, bg="red", fg="white", command=descarga_video)
 boton_descargar.grid()
-
-
-
-
-
-
-
 
 rt.mainloop()
